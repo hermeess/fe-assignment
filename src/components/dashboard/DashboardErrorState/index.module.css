@@ -1,0 +1,70 @@
+.page {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+}
+
+.card {
+  width: min(480px, 100%);
+  text-align: left;
+  background: var(--surface);
+  padding: 30px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.mark {
+  margin: 0;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--negative-soft);
+  color: var(--negative);
+  font-weight: 700;
+}
+
+.card h1 {
+  font-size: 21px;
+  letter-spacing: var(--tracking-tight);
+  margin: 17px 0 6px;
+}
+
+.card > p:not(.errorCode) {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.card .errorCode {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 16px 0 20px;
+  color: var(--text-subtle);
+  font-size: 11px;
+}
+
+.errorCode code {
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  padding: 2px 6px;
+}
+
+.card :global(.primary-button) {
+  min-width: 100px;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 20px;
+  }
+
+  .card {
+    width: 100%;
+  }
+}

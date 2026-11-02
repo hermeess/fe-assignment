@@ -1,0 +1,41 @@
+.card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2px 13px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+}
+
+.row:last-child {
+  border: 0;
+}
+
+.row span {
+  color: var(--text-subtle);
+}
+
+.row strong {
+  text-align: right;
+  font-weight: 600;
+}
+
+.total {
+  font-size: 13px;
+}
+
+.total strong {
+  color: var(--brand);
+}
+
+.arrivalNote {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 14px 0 0;
+}

@@ -1,0 +1,95 @@
+.row {
+  min-height: 60px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon {
+  flex: 0 0 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface-muted);
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+.incoming {
+  background: var(--positive-soft);
+  color: var(--positive);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.info strong {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info span {
+  font-size: 10px;
+  color: var(--text-subtle);
+  text-transform: capitalize;
+}
+
+.value {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.value strong {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.positive {
+  color: var(--positive) !important;
+}
+
+.pending {
+  background: var(--warning-soft);
+  color: var(--warning);
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+
+@media (max-width: 700px) {
+  .row {
+    gap: 9px;
+    min-height: 62px;
+  }
+
+  .icon {
+    flex-basis: 31px;
+    height: 31px;
+  }
+
+  .info strong {
+    font-size: 11px;
+  }
+
+  .info span {
+    font-size: 9px;
+  }
+
+  .value strong {
+    font-size: 10px;
+  }
+}

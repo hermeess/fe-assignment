@@ -1,0 +1,45 @@
+.panel {
+  text-align: center;
+  padding: 34px 28px 28px;
+}
+
+.panel h2 {
+  font-size: 23px;
+  margin: 5px 0;
+}
+
+.panel > p:not(:global(.eyebrow)) {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.mark {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--positive-soft);
+  color: var(--positive);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 17px;
+  font-size: 24px;
+}
+
+.detail {
+  background: var(--surface-muted);
+  border-radius: 9px;
+  padding: 13px;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 11px;
+}
+
+.detail span:last-child {
+  color: var(--text-subtle);
+}
+
+.panel button {
+  width: 100%;
+}

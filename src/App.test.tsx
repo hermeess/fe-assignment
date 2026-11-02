@@ -1,27 +1,22 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import App from './App'
+import { AppProviders } from './providers/AppProviders'
 
 function renderApp() {
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
-  })
-
   return render(
-    <QueryClientProvider client={queryClient}>
+    <AppProviders>
       <App />
-    </QueryClientProvider>,
+    </AppProviders>,
   )
 }
 
-describe('starter', () => {
-  it('reaches the mock API', async () => {
+describe('dashboard', () => {
+  it('loads the customer dashboard from the mock API', async () => {
     renderApp()
 
-    const status = screen.getByRole('status')
     await waitFor(
-      () => expect(status).toHaveTextContent('Mock API: connected'),
+      () => expect(screen.getByRole('heading', { name: 'Good evening, Ava' })).toBeInTheDocument(),
       { timeout: 3000 },
     )
   })

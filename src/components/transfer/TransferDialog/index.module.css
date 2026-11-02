@@ -1,0 +1,84 @@
+.modal {
+  max-width: calc(100vw - 32px);
+  padding-bottom: 0;
+}
+
+.modal :global(.ant-modal-content) {
+  display: flex;
+  flex-direction: column;
+  max-height: min(90vh, 850px);
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal :global(.ant-modal-header) {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.modal :global(.ant-modal-title) {
+  color: var(--text);
+}
+
+.title h2 {
+  margin: 2px 0 0;
+  font-size: 18px;
+}
+
+.modal :global(.ant-modal-close) {
+  top: 17px;
+  inset-inline-end: 20px;
+  width: 36px;
+  height: 36px;
+  color: var(--text-muted);
+}
+
+.modal :global(.ant-modal-body) {
+  flex: 1;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 700px) {
+  .modal {
+    top: 0;
+    width: 100% !important;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .modal :global(.ant-modal-content) {
+    height: 100dvh;
+    max-height: 100dvh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .modal :global(.ant-modal-header) {
+    padding: 16px 18px;
+  }
+
+  .modal :global(.ant-modal-body) {
+    flex: 1;
+  }
+}

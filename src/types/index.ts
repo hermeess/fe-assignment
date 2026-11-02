@@ -1,7 +1,12 @@
-export type Segment = 'retail' | 'premium'
-export type AccountType = 'checking' | 'savings' | 'credit'
-export type TransactionDirection = 'in' | 'out'
-export type TransactionStatus = 'posted' | 'pending'
+import type {
+  AccountType,
+  Segment,
+  TransactionDirection,
+  TransactionStatus,
+  TransferStatus,
+} from './enum'
+
+export type { AccountType, Segment, TransactionDirection, TransactionStatus, TransferStatus }
 
 export interface Health {
   ok: boolean
@@ -61,7 +66,7 @@ export interface TransferRecipient {
 export interface Transfer {
   id: string
   reference: string
-  status: 'completed'
+  status: TransferStatus
   fromAccountId: string
   recipient: TransferRecipient
   amount: number

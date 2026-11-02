@@ -1,0 +1,42 @@
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.row h1 {
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  margin: 5px 0;
+}
+
+.copy {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.desktopTransfer span {
+  font-size: 19px;
+  margin-right: 4px;
+}
+
+@media (max-width: 700px) {
+  .row {
+    margin-bottom: 19px;
+  }
+
+  .row h1 {
+    font-size: 24px;
+  }
+
+  .copy {
+    font-size: 12px;
+  }
+
+  .desktopTransfer {
+    display: none;
+  }
+}

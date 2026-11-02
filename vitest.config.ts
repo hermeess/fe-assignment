@@ -8,6 +8,7 @@ export default defineConfig({
     setupFiles: ['./src/test/setup.ts'],
     css: true,
     restoreMocks: true,
+    exclude: ['e2e/**', 'node_modules/**', 'dist/**'],
     // Same results on every machine and in CI, whatever the local timezone.
     env: { TZ: 'Asia/Singapore' },
   },
