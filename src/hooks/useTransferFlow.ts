@@ -96,6 +96,8 @@ export function useTransferFlow({ onClose, accounts, remaining }: Props) {
       setRecipient(parsed.data)
     } else if (!selected) {
       return
+    } else {
+      setRecipient(null)
     }
     setStep(TransferStep.Amount)
   }
@@ -172,10 +174,11 @@ export function useTransferFlow({ onClose, accounts, remaining }: Props) {
         onSelect: (payee: Payee) => {
           setSelected(payee)
           setIsNew(false)
+          setRecipient(null)
         },
-        onNewRecipient: () => {
-          setIsNew(true)
-          setSelected(null)
+        onNewRecipient: (isNew: boolean) => {
+          setIsNew(isNew)
+          if (isNew) setSelected(null)
         },
         onRecipientChange: setRecipient,
       },

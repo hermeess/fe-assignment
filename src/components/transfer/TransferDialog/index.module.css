@@ -6,6 +6,7 @@
 .modal :global(.ant-modal-content) {
   display: flex;
   flex-direction: column;
+  height: min(740px, 90vh);
   max-height: min(90vh, 850px);
   overflow: hidden;
   padding: 0;

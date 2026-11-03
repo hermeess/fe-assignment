@@ -1,135 +1,61 @@
-# Meridian Banking — Frontend Take-Home
+# Meridian Banking
 
-Build a small banking app for one customer: a **dashboard** that shows her
-accounts and recent transactions, and a **three-step transfer** that sends money
-to a payee.
-
-You get a working React + TypeScript starter with a mock API already wired in,
-plus design tokens and a wireframe. You don't need a backend, and you don't need
-to invent data.
-
-|  |  |
-| --- | --- |
-| **Time** | Submit within **2 weeks** of receiving this. Most people need about **8–12 hours**; you don't need to use the full two weeks. |
-| **AI tools** | Allowed. In the follow-up call you explain your code and change it live, **without AI help**. See [How we assess](#4-how-we-assess). |
-| **Stack** | React 19, TypeScript, Vite, TanStack Query, React Hook Form, Zod, MSW, Vitest (all installed). Node 22. |
-
----
-
-## 1. Get started
-
-1. Open **https://github.com/Harmonice-Mundi/2026-fe-assignment/generate**
-   (or press **Use this template** → **Create a new repository**). Choose your
-   own account as the owner, keep it **Public**, and click **Create
-   repository**.
-2. Clone your copy and run:
-
-   ```bash
-   npm install
-   npm run dev        # http://localhost:5173
-   ```
-
-   You should see **"Mock API: connected"**. That screen is a placeholder;
-   replace it with your app.
-
-3. Read the docs below in order before writing code.
-
-## 2. What to read
-
-| Read | What it gives you |
-| --- | --- |
-| 1. [`brief/candidate-brief.md`](brief/candidate-brief.md) | **The spec.** What to build, what's required vs optional, exact copy. |
-| 2. [`wireframes/wireframe.md`](wireframes/wireframe.md) | Layout of each screen (low fidelity — no visual design). |
-| 3. [`brief/api-contract.md`](brief/api-contract.md) | Endpoints, types, errors, and test hooks. |
-
-Look these up when you need them:
-
-- [`DEPLOYMENT.md`](DEPLOYMENT.md): hosting settings and fixes for common mock-API
-  problems.
-- [`brief/design-tokens.css`](brief/design-tokens.css): colours, spacing and type
-  (already imported).
-- [`mock-api/README.md`](mock-api/README.md): the optional Node mock server.
-
-## 3. What's already in the starter
-
-| Path | What it is |
-| --- | --- |
-| `src/api/client.ts`, `src/api/types.ts` | Typed `apiFetch` helper and the API types. Build your queries on these. |
-| `src/lib/format.ts` | `formatMoney` and `formatShortDate`. Use them so amounts and dates match the brief. |
-| `src/mocks/`, `mock-api/` | The mock API. It runs in the browser, in tests, and in your deployed site. **Don't edit it.** |
-| `src/test/setup.ts` | Test setup. The mock data resets before every test. |
-| `src/App.tsx` | Placeholder screen. Replace it. |
-
-How you structure folders, components and features is **up to you** — that's
-part of what we look at.
-
-```bash
-npm run dev        # start the app
-npm test           # run tests once (npm run test:watch to keep watching)
-npm run lint       # ESLint
-npm run typecheck  # TypeScript
-npm run check      # lint + typecheck + tests
-npm run build      # production build into dist/
-```
-
-Run `npm run check` and `npm run build` before you submit; both should pass.
-
-## 4. How we assess
-
-1. **We open your deployed app** and run through the flows in the brief.
-2. **We read your code and README.** We look at how you structured the
-   project, the decisions you made, and whether the tests check real behaviour.
-3. **We have a follow-up call with you (about 45 minutes).** You share your
-   screen and:
-   - walk us through the structure and two or three decisions you made;
-   - trace one flow through the code (for example, what happens from
-     `Confirm transfer` until the balance updates);
-   - make **one or two small changes live**, without AI assistance. They are
-     the size of "add a validation rule" or "show one more field". Your
-     normal editor, docs and search are fine.
-
-**On AI:** use whatever tools you like while building. We are not checking
-whether code was AI-generated. We are checking that **you understand all of
-it** and made deliberate choices. If you can't explain a piece of code, it
-counts against you, whoever wrote it. Your README must say what you used AI
-for (see below).
-
-A smaller app you understand well scores better than a bigger one you can't
-explain.
-
-## 5. Submit
-
-1. **Deploy** to Netlify, Vercel or Cloudflare Pages (settings in
-   [`DEPLOYMENT.md`](DEPLOYMENT.md)). The deployed site must work with no local
-   server.
-2. **Replace this README** with your own, using the outline below.
-3. **Reply to the invitation email** with your repo URL and your deployed URL.
-
-### Your README
-
-```md
-# Meridian Banking — <Your Name>
-
-- Deployed: <url>
-- Run locally: `npm install && npm run dev`
+- Deployed: [https://friendly-gumption-247b8b.netlify.app/](https://friendly-gumption-247b8b.netlify.app/)
+- Run locally: `npm ci && npm run dev`
+- Node.js: 22
 
 ## Project structure
-Folders and what each is responsible for.
+
+- `src/api/` — API client, query functions, dashboard data hooks, and transfer mutations.
+- `src/components/` — Shared UI and feature components. Larger components are colocated in folders with their CSS Modules; transfer steps and transaction items are split into focused components.
+- `src/constants/` — API paths, query keys, and transfer constants.
+- `src/hooks/` — Reusable hooks, including the transfer flow and debounced values.
+- `src/pages/` — Dashboard page composition.
+- `src/providers/` — Redux, TanStack Query, preferences, and modal providers.
+- `src/store/` — Redux store and persisted theme and segment preferences.
+- `src/types/` — Shared TypeScript types and enums.
+- `src/mocks/` and `mock-api/` — MSW browser handlers and the shared in-memory mock API.
+- `e2e/` — Playwright end-to-end coverage.
 
 ## Decisions and trade-offs
-Server state vs UI state, forms and validation, theming, anything you
-chose deliberately, and what you'd change.
+
+- TanStack Query owns remote API state and caching. Redux Persist stores user preferences such as theme and customer segment.
+- Transfer form values are managed locally through a transfer-specific hook and React Hook Form. The transfer draft only exists while the dialog is open, so it does not need to live in the global Redux store.
+- Zod validates the transfer form and recipient details. Amount input accepts digits and a decimal point, and normalizes whole amounts to two decimal places.
+- Ant Design provides the modal, form controls, select, and dashboard skeleton. CSS Modules scope component styles, while shared design tokens remain global.
+- Search is debounced and result areas reserve space to reduce layout shifts. The transfer dialog is code-split and prefetched when the user shows intent to open it.
+- The app is deployed as static files. MSW starts before the app renders and intercepts API requests in both development and production; the mock database resets on page reload.
 
 ## Loading, empty and error states
-How you handled them, and how to see each one in the deployed app.
+
+- The dashboard uses Ant Design skeletons while its data is loading.
+- Empty accounts and transaction results have dedicated empty states.
+- API failures show a retry action and the API error code.
+- Open **Demo tools** in the bottom-right corner to preview the dashboard error or empty state. Choose **Reset demo data** to return to the normal dashboard.
 
 ## Tests
-What they cover and why you picked those cases.
+
+- Vitest checks dashboard rendering and money/date formatting.
+- The Playwright end-to-end test opens the transfer flow, checks amount formatting, completes a transfer, and verifies the updated balance and transaction.
+- GitHub Actions runs formatting checks, lint, typecheck, unit tests, the production build, and the Playwright test.
+
+Run the local checks with:
+
+```bash
+npm run check
+npm run build
+npm run test:e2e
+```
 
 ## AI use
-Which tools, and what for. Name two or three places where you changed,
-rejected or fixed what the AI produced, and why.
+
+I used OpenAI Codex during implementation for scaffolding, refactoring, styling, test setup, and deployment troubleshooting. I reviewed and changed its suggestions where they did not fit the assignment:
+
+- Adding debouncing, minimising CLS, prefetching on hover, UX.
+- Kept the transfer draft local after considering a global store; the draft is only used inside the transfer dialog.
+- Restored production MSW startup after a bundle-size change had limited it to development; the deployed static app depends on the mock worker for API requests.
 
 ## Not done / known issues
-What you left out or would do with more time.
-```
+
+- The API is a mock, and transfer data is held in memory. A page reload restores the seed balances and transactions; no real payment is sent.
+- The dashboard and transfer flow are a single-page experience and do not use a client-side router.

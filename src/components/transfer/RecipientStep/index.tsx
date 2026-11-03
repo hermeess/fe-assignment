@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Input } from 'antd'
+import { Input, Segmented } from 'antd'
 import type { Payee } from '../../../types'
 import { useDebouncedValue } from '../../../hooks/useDebouncedValue'
 import type { RecipientDraft } from '../validation'
@@ -15,7 +15,7 @@ export type RecipientStepState = {
 
 export type RecipientStepActions = {
   onSelect: (payee: Payee) => void
-  onNewRecipient: () => void
+  onNewRecipient: (isNew: boolean) => void
   onRecipientChange: (recipient: RecipientDraft) => void
 }
 
@@ -39,56 +39,63 @@ export function RecipientStep({ payees, loading, state, actions }: Props) {
   return (
     <div className={shared.dialogContent}>
       <h3>Who are you sending to?</h3>
-      <label className={shared.fieldLabel} htmlFor="payee-search">
-        Search payees
-      </label>
-      <Input
-        id="payee-search"
-        className={shared.textInput}
-        placeholder="Search saved payees"
-        value={search}
-        onChange={(event) => setSearch(event.target.value)}
+      <Segmented
+        className={styles.recipientMode}
+        block
+        value={state.isNew ? 'new' : 'saved'}
+        options={[
+          { label: 'Saved payees', value: 'saved' },
+          { label: 'New recipient', value: 'new' },
+        ]}
+        onChange={(value) => actions.onNewRecipient(value === 'new')}
       />
-      <div
-        className={`${styles.payeeList} ${emptyResults ? styles.message : ''}`}
-        role="listbox"
-        aria-label="Payees"
-        aria-busy={loading}
-      >
-        {loading ? (
-          <p>Loading payees…</p>
-        ) : filteredPayees.length ? (
-          filteredPayees.map((payee) => (
-            <button
-              className={`${styles.option} ${state.selected?.id === payee.id ? styles.selected : ''}`}
-              role="option"
-              aria-selected={state.selected?.id === payee.id}
-              key={payee.id}
-              onClick={() => actions.onSelect(payee)}
-            >
-              <span className={styles.avatar}>{payee.initials}</span>
-              <span className={styles.copy}>
-                <strong>{payee.name}</strong>
-                <span>
-                  {payee.bank} · {payee.accountNumberMasked}
-                </span>
-              </span>
-              <span className={styles.radio} />
-            </button>
-          ))
-        ) : (
-          <p>No saved payees match your search.</p>
-        )}
-      </div>
-      <button
-        className={`${styles.newRecipientToggle} ${state.isNew ? styles.selected : ''}`}
-        onClick={actions.onNewRecipient}
-      >
-        ＋ <span>Send to someone new</span>
-        <span>›</span>
-      </button>
       {state.isNew && (
         <NewRecipientFields value={state.recipient} onChange={actions.onRecipientChange} />
+      )}
+      {!state.isNew && (
+        <>
+          <label className={shared.fieldLabel} htmlFor="payee-search">
+            Search payees
+          </label>
+          <Input
+            id="payee-search"
+            className={shared.textInput}
+            placeholder="Search saved payees"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+          <div
+            className={`${styles.payeeList} ${emptyResults ? styles.message : ''}`}
+            role="listbox"
+            aria-label="Payees"
+            aria-busy={loading}
+          >
+            {loading ? (
+              <p>Loading payees…</p>
+            ) : filteredPayees.length ? (
+              filteredPayees.map((payee) => (
+                <button
+                  className={`${styles.option} ${state.selected?.id === payee.id ? styles.selected : ''}`}
+                  role="option"
+                  aria-selected={state.selected?.id === payee.id}
+                  key={payee.id}
+                  onClick={() => actions.onSelect(payee)}
+                >
+                  <span className={styles.avatar}>{payee.initials}</span>
+                  <span className={styles.copy}>
+                    <strong>{payee.name}</strong>
+                    <span>
+                      {payee.bank} · {payee.accountNumberMasked}
+                    </span>
+                  </span>
+                  <span className={styles.radio} />
+                </button>
+              ))
+            ) : (
+              <p>No saved payees match your search.</p>
+            )}
+          </div>
+        </>
       )}
     </div>
   )

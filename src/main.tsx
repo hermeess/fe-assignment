@@ -24,10 +24,7 @@ async function bootstrap() {
     await enableMocking()
   } catch (error) {
     // Render anyway so the error is visible instead of a blank page.
-    console.error(
-      'Mock API failed to start. Check that public/mockServiceWorker.js exists.',
-      error,
-    )
+    console.error('Mock API failed to start. Check that public/mockServiceWorker.js exists.', error)
   }
 
   createRoot(document.getElementById('root')!).render(

@@ -60,6 +60,11 @@ export function AmountStep({
       />
       <label className={shared.fieldLabel} htmlFor="amount">
         Amount
+        {errors.amount && (
+          <span className={shared.fieldError} id="amount-error" role="alert">
+            {errors.amount.message}
+          </span>
+        )}
       </label>
       <div className={styles.amountInputWrap}>
         <span>SGD</span>
@@ -92,11 +97,6 @@ export function AmountStep({
           )}
         />
       </div>
-      {errors.amount && (
-        <p className={shared.fieldError} id="amount-error" role="alert">
-          {errors.amount.message}
-        </p>
-      )}
       <div className={styles.quickAmounts}>
         {QUICK_TRANSFER_AMOUNTS.map((value) => (
           <button
